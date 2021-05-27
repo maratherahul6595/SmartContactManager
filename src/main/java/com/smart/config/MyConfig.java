@@ -49,7 +49,18 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
 		.antMatchers("/user/**").hasRole("USER")
-		.antMatchers("/**").permitAll().and().formLogin().loginPage("/signin").and().csrf().disable();
+		.antMatchers("/**").permitAll().and().formLogin().loginPage("/signin")
+		.loginProcessingUrl("/dologin")
+		.defaultSuccessUrl("/user/index")
+		//.failureUrl("/login-fail")
+		.and().csrf().disable();
+		
+		/*Serveral methods that we can use to configure login form:
+			1. loginpage() - the custom loginpage
+			2. loginProcessingUrl() - the Url to submit the username and password 
+			3. defaultSuccessfulURL() - the landing page after a successful login
+			4. failureUrl() - the landing page after an unsuccessful login
+		*/
 	}
 	
 
