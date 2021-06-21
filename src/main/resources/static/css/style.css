@@ -91,3 +91,30 @@ body{
 	font-size: 36px;
 	cursor: pointer;
 }
+
+.my_profile_picture{
+	width: 35px;
+	height: 30px;
+	object-fit:cover;
+	border-radius: 50%;
+}
+
+/* Search CSS */
+.search-container{
+	position: relative;
+}
+
+.search-result{
+	position: absolute;
+	background: white;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid gray;
+	display: none;	
+}
+
+.active{
+	background: #009688 !important;
+	color: white !important;
+	
+}

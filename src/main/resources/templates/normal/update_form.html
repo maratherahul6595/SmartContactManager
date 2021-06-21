@@ -2,19 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
-    <title>Add Contact</title>
+    <title>Document</title>
 </head>
 <body>
 
 	<section>
 		<div class="card mr-3 ml-3">
 			<div class="card-body">
-				<h1 class="text-center">Add Contact</h1>
+				<h1 class="text-center">Update Your Contact</h1>
 				<div class="container-fluid mt-1">
 					<div class="row">
 						<div class="col-md-8 offset-md-2">
 							<form action="#" th:object="${contact}" enctype="multipart/form-data" method="post" 
-									th:action="@{/user/process-contact}" class="mt-2">
+									th:action="@{/user/process-update}" class="mt-2">
+								
+								<input type="hidden" th:value="${contact.cid}" name="cid">
 								
 								<!-- First Name -->
 									<div class="input-group">
@@ -23,7 +25,7 @@
 												<i class="fa fa-plus"></i>
 											</div>
 										</div>
-										<input required type="text" id="firstName" name="name" placeholder="Enter Name Here" class="form-control"/>
+										<input th:value="${contact.name}" required type="text" id="firstName" name="name" placeholder="Enter Name Here" class="form-control"/>
 									</div>
 									
 								<!-- Second Name -->
@@ -33,7 +35,7 @@
 												<i class="fa fa-user-alt"></i>
 											</div>
 										</div>
-										<input required type="text" id="secondName" name="secondName" placeholder="Enter Nick Name Here" class="form-control"/>
+										<input th:value="${contact.secondName}" required type="text" id="secondName" name="secondName" placeholder="Enter Nick Name Here" class="form-control"/>
 									</div>
 								
 								<!-- Phone Field Name -->
@@ -43,7 +45,7 @@
 												<i class="fa fa-phone"></i>
 											</div>
 										</div>
-										<input required type="number" id="phone" name="phone" placeholder="Enter Phone Number Here" class="form-control"/>
+										<input th:value="${contact.phone}" required type="number" id="phone" name="phone" placeholder="Enter Phone Number Here" class="form-control"/>
 									</div>
 									
 								<!-- Email Field Name -->
@@ -51,7 +53,7 @@
 										<div class="input-group-prepend">
 											<div class="input-group-text">@</div>
 										</div>
-										<input required type="email" id="email" name="email" placeholder="Enter Email Here" class="form-control"/>
+										<input th:value="${contact.email}" required type="email" id="email" name="email" placeholder="Enter Email Here" class="form-control"/>
 									</div>	
 									
 								<!-- Work Field Name -->
@@ -61,15 +63,19 @@
 												<i class="fa fa-briefcase"></i>
 											</div>
 										</div>
-										<input required type="text" id="work" name="work" placeholder="Enter Work Here" class="form-control"/>
+										<input th:value="${contact.work}" required type="text" id="work" name="work" placeholder="Enter Work Here" class="form-control"/>
 									</div>		
 									
 								<!-- Contact Description -->
 									<div class="input-group mt-3">
-										<textarea id="mytextarea" placeholder="Enter Contact Description" name="description" rows="10" class="form-control"></textarea>
+										<textarea th:text="${contact.description}" id="mytextarea" placeholder="Enter Contact Description" name="description" rows="10" class="form-control"></textarea>
 									</div>
 											
 								<!-- Contact Image -->
+									<div class="container text-center">
+										<img style="width: 250px; height: 250px;" class="img-fluid my_profile_picture " alt="" th:src="@{'/img/'+${contact.image}}" src=""/>
+									</div>
+									<p class="text-secondary">Choose new profile pic</p>
 									<div class="custom-file mt-3">
 										<input type="file" name="profileImage"/>
 									</div>
@@ -82,20 +88,12 @@
 				</div>
 			</div>
 		</div>
-		
 		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 		<script>
       		tinymce.init({
         	selector: '#mytextarea'
       		});
     	</script>
-    	
-    	<script>
-			$(document).ready(() => {
-				$('.item').removeClass('active');
-				$('#add-link').addClass('active');
-			});
-		</script>
 	</section>
 
 </body>

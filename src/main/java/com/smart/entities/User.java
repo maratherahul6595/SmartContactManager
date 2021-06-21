@@ -46,7 +46,7 @@ public class User {
 	@AssertTrue(message = "Must agree terms and conditions")
 	private boolean agreement;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user" , orphanRemoval = true)
 	private List<Contact> contacts=new ArrayList<Contact>(); 
 	
 	public User() {

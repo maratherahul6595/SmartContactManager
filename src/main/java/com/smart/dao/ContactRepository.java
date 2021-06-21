@@ -8,10 +8,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.smart.entities.Contact;
+import com.smart.entities.User;
 
 public interface ContactRepository  extends JpaRepository<Contact, Integer>{
 
 	@Query("from Contact as c where c.user.id=:userId")
 	public Page<Contact> findContactsByUser(int userId, Pageable pageable);
+
+	//search
+	public List<Contact> findByNameContainingAndUser(String keyword, User user);
+	
 }
 	

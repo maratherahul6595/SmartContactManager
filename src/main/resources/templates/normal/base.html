@@ -19,6 +19,11 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 
 <title th:text="${title}">Base html</title>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
 </head>
 <body>
 	<!-- Start navbar -->
@@ -41,7 +46,7 @@
 			
 				<!-- <li class="nav-item"><a class="nav-link" href="#">About</a></li> -->
 				
-				<li class="nav-item"><a class="nav-link" th:text="${user.name}" href="#">Login</a>
+				<li class="nav-item"><a class="nav-link" th:text="${user.name}" th:href="@{/user/profile}" href="#">Login</a>
 				</li>
 				
 				<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a>
@@ -64,11 +69,11 @@
 		
 		<span onclick="toggleSidebar()" class="crossbtn">&times;</span>
 		
-		<a href="#" th:href="@{/user/index}" class="item"><i class="fas fa-home"></i> Home</a>
-		<a href="#" th:href="@{/user/show_contacts/0}" class="item"><i class="fas fa-id-card-alt"></i> View Contact</a>
-		<a href="#" th:href="@{/user/add-contact}" class="item"><i class="fas fa-pencil-alt"></i> Add Contact</a>
-		<a href="#" class="item"><i class="fas fa-user-circle"></i> Your Profile</a>
-		<a href="#" class="item"><i class="fas fa-cogs"></i> Setting</a>
+		<a id="home-link" href="#" th:href="@{/user/index}" class="item active"><i class="fas fa-home"></i> Home</a>
+		<a id="contacts-link" href="#" th:href="@{/user/show_contacts/0}" class="item"><i class="fas fa-id-card-alt"></i> View Contact</a>
+		<a id="add-link" href="#" th:href="@{/user/add-contact}" class="item"><i class="fas fa-pencil-alt"></i> Add Contact</a>
+		<a id="profile-link" href="#" th:href="@{/user/profile}" class="item"><i class="fas fa-user-circle"></i> Your Profile</a>
+		<a id="settings-link" href="#" th:href="@{/user/settings}" class="item"><i class="fas fa-cogs"></i> Setting</a>
 		<a href="#" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
 		<div class="divider"></div>
 		
@@ -83,7 +88,7 @@
 		
 		<!-- message box -->
 		<div th:if="${session.message}" class="container">
-			<div th:classappend="${'alert'+session.message.type}" class="alert text-center" role="alert">
+			<div th:classappend="${'alert-'+session.message.type}" class="alert text-center" role="alert">
 				<span th:text="${session.message.content}"></span>
 			</div>
 			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
@@ -94,10 +99,7 @@
 	<!-- End Content Area-->
 
 	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
+	
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -108,5 +110,28 @@
 		crossorigin="anonymous"></script>
 	<script th:src="@{/js/script.js}"></script>
 
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script>
+		function deleteContact(cid){
+			swal({
+				  title: "Are you sure?",
+				  text: "you want to delete this contact..",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+				    /* swal("Poof! Your imaginary file has been deleted!", {
+				      icon: "success", });*/
+				      window.location="/user/delete/"+cid;
+				    
+				  } else {
+				    swal("Your contact is safe!!");
+				  }
+				});
+		}
+	</script>
 </body>
 </html>
