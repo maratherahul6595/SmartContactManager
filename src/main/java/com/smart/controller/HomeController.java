@@ -87,15 +87,16 @@ public class HomeController {
 			
 			user.setRole("ROLE_USER");
 			user.setEnabled(true);
-			user.setImageUrl("default.png");
+			user.setImageUrl("contact.png");
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			
 			
 			System.out.println("Agreement :: "+agreement);
 			System.out.println("User :: "+user);
 			
 			User result=this.userRepository.save(user);
 			
-			httpSession.setAttribute("message", new Message("Successfully registered !!","alert-error"));
+			httpSession.setAttribute("message", new Message("Successfully registered !!","alert-success"));
 			model.addAttribute("user",new User());
 			return "signup";
 			

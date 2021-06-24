@@ -207,11 +207,22 @@ public class UserController {
 					File deletefile=new ClassPathResource("/static/img").getFile();
 					File file1= new File(deletefile,oldContactDetails.getImage());
 					file1.delete();
+					// delete from image bkp folder
+					File deletefile1=new ClassPathResource("G:\\\\HotelSaharaStarBKP\\\\ImageUpload\\\\SCMImageUpload").getFile();
+					File file2= new File(deletefile1,oldContactDetails.getImage());
+					file2.delete();
+					
 				}
 				//update new photo
 				File file=new ClassPathResource("/static/img").getFile();
 				Path path=Paths.get(file+File.separator+multipartFile.getOriginalFilename());
 				Files.copy(multipartFile.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+				
+				// image bkp of /static/img folder
+				String file1="G:\\HotelSaharaStarBKP\\ImageUpload\\SCMImageUpload";
+				Path path1=Paths.get(file1+File.separator+multipartFile.getOriginalFilename());
+				Files.copy(multipartFile.getInputStream(), path1,StandardCopyOption.REPLACE_EXISTING);
+				
 				contact.setImage(multipartFile.getOriginalFilename());
 			}
 			else {
